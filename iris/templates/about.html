@@ -1,0 +1,227 @@
+{% extends 'main.html' %}
+{% block head %}
+{{super()}}
+<style>
+    #pushbtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  padding: 15px;
+}
+    #downarrow{
+        animation:fadeo 0.7s infinite alternate ;
+    }
+    @keyframes fadeo {
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock %}
+{% block body %}
+<button id="pushbtn" onclick="topFunction()" class="btn btn-outline-dark btn-lg"><img src="https://img.icons8.com/plasticine/20/000000/long-arrow-up.png"/></button>
+<div id = "about">
+    {{super()}}
+    <br>
+<br>
+<br>
+    <div data-aos-duration="1200"  data-aos="fade-right" id="intro" class="row" style="width:100%; height: 100%">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-6">
+            <div  class="jumbotron dark">
+              <h1 class="display-4">What is it ?</h1>
+                <hr>
+              <p class="lead">
+                  Iris flower classification is a famous and a common problem of multi-class classification.
+                  The classification is on the basis of three species of iris flower namely,
+                    <ul class="lead">
+                        <li>Iris setosa</li>
+                        <li>Iris versicolor</li>
+                        <li>Iris virginica</li>
+                    </ul>
+                <p class="lead">Four features were measured from each sample in centimeters:</p>
+                    <ul class="lead">
+                        <li>SepalLength</li>
+                        <li>SepalWidth</li>
+                        <li>PetalLength</li>
+                        <li>PetalWidth</li>
+                    </ul>
+              </p>
+            </div>
+        </div>
+        <div  data-aos-duration="1200" data-aos="fade-left" class="col-lg-4">
+            <div class="card dark">
+              <div style="background-color: rgb(233,236,239)" class="card-body" >
+                <h2 class="card-title d-flex justify-content-center">Gallery</h2>
+
+                  <div class="d-flex justify-content-center">
+                    <img data-aos-duration="1000" data-aos="fade-left" id="fphoto" style="animation:fadeo 0.3s ease ;width: 300px;height: 300px;border-radius: 10px;" src="{{url_for('static', filename='images/setosa.jpg')}}">
+                  </div>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+
+                <div class="btn-group d-flex justify-content-center " role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-dark" value="setosa" name="fpic" onclick="flowerimage(1)"><p class="lead">setosa</p></button>
+                    <button type="button" class="btn btn-outline-dark" value="versicolor" name="fpic" onclick="flowerimage(2)"><p class="lead">versicolor</p></button>
+                    <button type="button" class="btn btn-outline-dark" value="virginica" name="fpic" onclick="flowerimage(3)"><p class="lead">virginica</p></button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex justify-content-center">
+        <a onclick="scrolldown();" id="downarrow" href="{{url_for('about')+ '#dataset'}}"><button class="btn btn-outline-dark" style="border-radius: 10px"><img src="https://img.icons8.com/metro/40/000000/chevron-down.png"/></button></a>
+            </div></div>
+</div>
+<div data-aos-duration="1200" data-aos="fade-right" id="dataset">
+    <br>
+    <br>
+    <div  class="row d-flex justify-content-center">
+        <div class="col-lg-10">
+            <div class="jumbotron dark">
+              <h1 class="display-4">Dataset</h1>
+                <hr>
+              <p class="lead">
+                  The first six values of the iris dataset.
+              </p>
+                <table class="table lead">
+                    <thead>
+                        <tr>
+                            {% for i in datahead %}
+                                <th scope="col">{{ i }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in dataset %}
+                        <tr>
+                            <td scope="row">
+                                {{i[0]}}
+                            </td>
+                            <td scope="row">
+                                {{i[1]}}
+                            </td>
+                            <td scope="row">
+                                {{i[2]}}
+                            </td>
+                            <td scope="row">
+                                {{i[3]}}
+                            </td>
+                            <td scope="row">
+                                {{i[4]}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p class="lead">Notice that the targets is marked <strong>0</strong>.
+                    That is because each species is indexed as 0, 1, and 2.
+                    Lets check that in Python,</p>
+                    <br>
+                    <div>
+                        <script src="https://gist.github.com/j0fiN/948eab7978fe34df5b776d3e5233efb6.js"></script>
+                    </div>
+                <p class="lead">The list index corresponds to the species index in the <strong>targets</strong> column.
+                There are 150 records in this dataset where they are split for training and testing data for the
+                    purpose of Machine Learning.</p>
+                <p class="lead">Graphical analysis of the dataset is found in the <a class="link" href="{{ url_for('graph') }}">Graph page</a></p>
+                <p class="lead">
+                    To learn more about the iris dataset in scikit-learn library of Python,
+                    <a target="_blank" class="link" href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html">Visit here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+ </div>
+<br>
+                    <br>
+                <br>
+                    <br>
+                <br>
+                    <br>
+                <br>
+                    <br>
+<div data-aos-duration="1200" data-aos="fade-left">
+    <div  class="row d-flex justify-content-center">
+        <div class="col-lg-10">
+            <div class="jumbotron dark">
+              <h1 class="display-4">Models</h1>
+                <hr>
+                <p class="lead" style="font-size: large">
+                    This platform is consists of specially trained ML models namely,</p>
+                    <ul class="lead" style="font-size: large">
+                        <li>Decision Tree Classifier (<code>dtc</code>)</li>
+                        <li>Gaussian Naive Bayes (<code>gnb</code>)</li>
+                        <li>K-Neighbors Classifier (<code>knc</code>)</li>
+                        <li>Logistic Regression (<code>lr</code>)</li>
+                        <li>Random Forest Classifier (<code>rfc</code>)</li>
+                        <li>Support Vector Machine (<code>svm</code>)</li>
+                    </ul>
+                    <p class="lead" style="font-size: large">These models
+                        are pre-trained and saved in the highest optimization possible. Check out the accuracy scores in Predict! page.</p>
+                <br>
+                <p class="lead"> NOTE: <em class="lead">JUMP TO <a class="link" href="{{ url_for('predict') }}">Predict!</a> page!! <code>Do note the abbreviations before diving.</code></em>
+                </p>
+                <div class="d-flex justify-content-center"><p  style="font-size: large">Want to understand using GRAPHS?!!</p><hr></div>
+                <div data-aos-duration="500" data-aos="fade-down" class="d-flex justify-content-center">
+                <img style="border-radius: 10px" height="400" width="600" src="{{ url_for('static', filename='images/program.png')}}">
+            </div>
+                <h2 class="d-flex justify-content-center lead"><a class="link" href="{{url_for('graph')}}">Get ready to Analyse!</a></h2>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        function flowerimage(index){
+
+        if(index===1){
+            document.getElementById("fphoto").src = "{{url_for('static', filename='images/setosa.jpg')}}";
+        }
+        else if (index===2){
+            document.getElementById("fphoto").src = "{{url_for('static', filename='images/versicolor.jpg')}}";
+        }
+        else{
+            document.getElementById("fphoto").src = "{{url_for('static', filename='images/virginica.jpg')}}";
+        }
+        console.log(document.getElementById("fphoto").src);
+    }
+        //Get the button
+var mybutton = document.getElementById("pushbtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+  scrolldown();
+}
+
+function scrolldown(){
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById('downarrow').style.display = "block";
+  } else {
+    document.getElementById('downarrow').style.display = "none";
+  }
+}
+</script>
+
+{% endblock %}

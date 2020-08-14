@@ -1,0 +1,33 @@
+ *{
+            scroll-behavior: smooth;
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        font-family: 'Roboto Mono', monospace;
+
+        }
+        .dark{
+            box-shadow: 5px 2px 30px grey;
+}
+        .link{
+            color:black;
+            text-decoration:underline;
+            border-radius: 5px;
+        }
+        .link:hover{
+            color: white;
+            background-color: black;
+        }
+        .fixedElement {
+            position:fixed;
+            top:0;
+            width:100%;
+            z-index:100;
+        }
+        h3,h4,h5,h6{
+            font-family: 'Roboto Mono', monospace;
+        }
+        h1,h2{
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bolder;
+        }

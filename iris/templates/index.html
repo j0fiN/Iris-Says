@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+{{super()}}
+<br>
+<br>
+<br>
+<br>
+    <div  id="intro" class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-6" data-aos-duration="1200" data-aos="fade-right">
+            <div class="jumbotron dark">
+              <h1 class="display-4">Iris Says!</h1>
+                <p class="lead">This is a minimalist platform for <strong>learning</strong>, <strong>understanding</strong> and <strong>realising</strong> Iris Flower Classification.</p>
+              <hr class="my-4">
+                <a class="btn btn-outline-dark btn-lg" href="{{url_for('about')}}" role="button">Start the Ride!</a>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+        <div data-aos-duration="2000" data-aos="fade-left" class="col-lg-4 d-flex justify-content-center">
+            <img style="border-radius:1000px" height="400" width="400" src="{{ url_for('static', filename='images/code.png')}}">
+        </div>
+    </div>
+{% endblock %}

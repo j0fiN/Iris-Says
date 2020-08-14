@@ -1,0 +1,208 @@
+{% extends 'main.html' %}
+{% block head %}
+{{super()}}
+<meta http-Equiv="Cache-Control" Content="no-cache">
+<meta http-Equiv="Pragma" Content="no-cache">
+<meta http-Equiv="Expires" Content="0">
+{% endblock %}
+{% block body %}
+{{super()}}
+<br>
+<br>
+<div class="row ">
+    <div class="col-lg-1"></div>
+    <div style="border-radius: 1500px 5px; box-shadow: 2px 2px 10px grey;" data-aos-duration="1000" data-aos="fade-right" class="col-lg-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="display-4">Interact to Understand!!</h1>
+                <em class="lead">Powered By Python Plotly Express</em>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12 d-flex">
+                <h3>X-axis</h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+        <div style="height: 50px" class="input-group pt-3 pl-3 pr-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01"><h3 class="lead">Part</h3></label>
+          </div>
+          <select onchange="graphIt()" style="height: 50px" class="input-group-text custom-select" id="inputGroupSelect01" >
+            <option value="p" selected><h3 class="lead" >Petal</h3></option>
+              <option value="s"><h3 >Sepal</h3></option>
+          </select>
+            <div class="input-group-prepend pl-4">
+            <label class="input-group-text" for="inputGroupSelect02"><h3 class="lead">Measure</h3></label>
+          </div>
+          <select onchange="graphIt()" style="height: 50px" class="input-group-text custom-select" id="inputGroupSelect02">
+            <option value="w" ><h3>Width</h3></option>
+            <option value="l" selected><h3>Length</h3></option>
+          </select>
+        </div>
+            </div>
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12 d-flex">
+                <h3>Y-axis</h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+        <div style="height: 50px" class="input-group pt-3 pl-3 pr-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect03"><h3 class="lead">Part</h3></label>
+          </div>
+          <select onchange="graphIt()" style="height: 50px" class="input-group-text custom-select" id="inputGroupSelect03">
+            <option value="p" selected><h3>Petal</h3></option>
+              <option value="s"><h3>Sepal</h3></option>
+          </select>
+            <div class="input-group-prepend pl-4">
+            <label class="input-group-text" for="inputGroupSelect04"><h3 class="lead">Measure</h3></label>
+          </div>
+          <select onchange="graphIt()" style="height: 50px" class="input-group-text custom-select" id="inputGroupSelect04">
+            <option value="w" selected><h3>Width</h3></option>
+            <option value="l"><h3>Length</h3></option>
+          </select>
+        </div>
+            </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-12 d-flex">
+                <h3>Dimension</h3>
+                <hr>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12 d-flex">
+                <div onchange="dimension()" id="dim" class="btn-group btn-group-toggle " data-toggle="buttons">
+                  <label class="btn btn-outline-dark active btn-lg">
+                    <input  type="radio" name="options" id="option1" checked><p class="lead">2-Dimensional</p>
+                  </label>
+                  <label class="btn btn-outline-dark btn-lg">
+                    <input type="radio" name="options" id="option2"><p class="lead">3-Dimensional</p>
+                  </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div  class="col-lg-6 d-flex justify-content-center">
+    <div class="card dark" style="background-color: rgb(233,236,239)" data-aos-duration="1000" data-aos="fade-left" class="col-lg-6 d-flex justify-content-center">
+        <iframe id="frame" style="border:none; border-radius: 10px;" width="700" height="600" src="{{url_for('static', filename='graphs/fig_pl_pw.html')}}"></iframe>
+    </div>
+        </div>
+</div>
+<script>
+    $('#dim').button('toggle')
+    function dimension(){
+        if (document.getElementById('option2').checked===true){
+            document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_3d.html')}}";
+            document.getElementById('inputGroupSelect01').disabled = true;
+            document.getElementById('inputGroupSelect02').disabled = true;
+            document.getElementById('inputGroupSelect03').disabled = true;
+            document.getElementById('inputGroupSelect04').disabled = true;
+        }
+        else{
+            document.getElementById('inputGroupSelect01').disabled = false;
+            document.getElementById('inputGroupSelect02').disabled = false;
+            document.getElementById('inputGroupSelect03').disabled = false;
+            document.getElementById('inputGroupSelect04').disabled = false;
+            graphIt();
+        }
+    }
+
+</script>
+<script>
+    function graphIt() {
+        let val1 = document.getElementById("inputGroupSelect01").value;
+        let val2 = document.getElementById("inputGroupSelect02").value;
+        let val3 = document.getElementById("inputGroupSelect03").value;
+        let val4 = document.getElementById("inputGroupSelect04").value;
+        let file = "fig_";
+        let x = '';
+        let y = '';
+        if (val1=='p'){
+            x += 'p';
+        }
+        else{
+            x += 's'
+        }
+
+        if (val2=='w'){
+            x += 'w';
+        }
+        else{
+            x += 'l';
+        }
+
+        file = file + x;
+        file = file + '_';
+
+         if (val3=='p'){
+            y += 'p';
+        }
+        else{
+            y += 's';
+        }
+
+        if (val4=='w'){
+            y += 'w';
+        }
+        else{
+            y += 'l';
+        }
+        file = file + y
+        if (x===y) {
+            alert("You have labelled both x and y axis the same feature. Please do change it.");
+        }
+
+        if (file === 'fig_pl_pw'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_pl_pw.html')}}"
+        }
+        else if (file === 'fig_pl_sl'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_pl_sl.html')}}"
+        }
+        else if (file === 'fig_pl_sw') {
+            document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_pl_sw.html')}}"
+        }
+
+        else if (file === 'fig_pw_pl'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_pw_pl.html')}}"
+        }
+        else if (file === 'fig_pw_sl'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_pw_sl.html')}}"
+        }
+        else if (file === 'fig_pw_sw'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_pw_sw.html')}}"
+        }
+
+        else if (file === 'fig_sl_pl'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_sl_pl.html')}}"
+        }
+        else if (file === 'fig_sl_pw'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_sl_pw.html')}}"
+        }
+        else if (file === 'fig_sl_sw'){
+            document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_sl_sw.html')}}"
+        }
+
+        else if (file === 'fig_sw_pl'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_sw_pl.html')}}"
+        }
+        else if (file === 'fig_sw_pw'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_sw_pw.html')}}"
+        }
+        else if (file === 'fig_sw_sl'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_sw_sl.html')}}"
+        }
+        else if (file === 'fig_sw_sl'){
+           document.getElementById('frame').src = "{{url_for('static', filename='graphs/fig_sw_sl.html')}}"
+        }
+    }
+</script>
+{% endblock %}

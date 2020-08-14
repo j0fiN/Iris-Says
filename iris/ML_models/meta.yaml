@@ -1,0 +1,22 @@
+# Models
+models:
+  DecisionTreeClassifier
+  GaussianNB
+  KNeighborsClassifier
+  LogisticRegression
+  MultinomialNB
+  RandomForestClassifier
+  SVC
+
+# Accuracy
+accuracy:
+  fileformat: .txt
+  values: 7
+  data:
+  - 0.973
+  - 0.967
+  - 0.967
+  - 0.967
+  - 0.953
+  - 0.973
+  - 0.953

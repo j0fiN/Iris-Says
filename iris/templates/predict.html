@@ -1,0 +1,220 @@
+{% extends 'main.html' %}
+{% block head %}
+{{super()}}
+{% endblock %}
+{% block body %}
+{{super()}}
+<br>
+<br>
+<div class="row" >
+  <div class="col-lg-1"></div>
+    <div style="border-radius: 2000px 5px; box-shadow: 1px 1px 20px grey;" data-aos-duration="1000" data-aos="fade-right" class="col-lg-5">
+        <form  method="post">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="display-4">Predict To Realize!</h1>
+                <em class="lead">Powered By Python Scikit-Learn</em>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12 d-flex">
+                <h3>Select the ML Model</h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <div onchange="accuracy()" id="model" class="btn-group btn-group-toggle btn-group-lg" data-toggle="buttons">
+                      <label  id="dtc" class="btn btn-outline-dark active">
+                        <input  type="radio" name="options" id="option1" value="dtc" checked>DTC</label>
+                    <label  id="gnb" class="btn btn-outline-dark">
+                        <input  type="radio" name="options" id="option7" value="gnb">GNB</label>
+                      <label  id="knc" class="btn btn-outline-dark">
+                        <input  type="radio" name="options" id="option2" value="knc">KNC</label>
+                      <label  id="lr" class="btn btn-outline-dark">
+                        <input  type="radio" name="options" id="option3" value="lr">LR</label>
+                    <label  id="mnb" class="btn btn-outline-dark">
+                        <input  type="radio" name="options" id="option4" value="mnb">MNB</label>
+                    <label  id="rfc" class="btn btn-outline-dark">
+                        <input  type="radio" name="options" id="option5" value="rfc">RFC</label>
+                    <label  id="svm" class="btn btn-outline-dark">
+                        <input  type="radio" name="options" id="option6" value="svm">SVM</label>
+
+                </div>
+            </div>
+        </div>
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-center">
+                        <button onload="accuracy()" id="accuracy" class="btn btn-light btn-lg" disabled>
+                            ACCURACY : 97.3%
+                        </button>
+                    </div>
+                </div>
+            <div class="pt-3">
+                <hr>
+            </div>
+        <div class="row pt-4">
+            <div class="col-lg-12 d-flex">
+                <h3>Enter your values </h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row input-group input-group-lg  d-flex justify-content-center">
+            <div class="row input-group input-group-lg">
+                <div class="col input-group input-group-lg">
+                    <div class="input-group-prepend"><label class="input-group-text" for="pw">Petal Width(PW)</label></div>
+                  <input id="pw" type="number" name="pw" class="form-control" step="0.1" value="1.0" required>
+                </div>
+                <div class="col input-group input-group-lg">
+                    <div class="input-group-prepend"><label class="input-group-text" for="pl">Petal Length(PL)</label></div>
+                  <input id="pl" type="number" name="pl" class="form-control" step="0.1" value="1.0" required>
+                </div>
+            </div>
+
+            <div class="row pt-5 input-group input-group-lg">
+                <div class="col input-group input-group-lg">
+                    <div class="input-group-prepend"><label class="input-group-text" for="sw">Sepal Width(SW)</label></div>
+                  <input id="sw" type="number" name="sw" class="form-control" step="0.1" value="1.0" required>
+                </div>
+                <div class="col input-group input-group-lg">
+                    <div class="input-group-prepend"><label class="input-group-text" for="sl">Sepal Length(SL)</label></div>
+                  <input id="sl" type="number" name="sl" class="form-control" step="0.1" value="1.0" required>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-12 d-flex justify-content-center">
+
+                <button  type="submit" class="btn btn-outline-dark btn-lg">Predict!</button>
+            </div>
+        </div>
+            </form>
+    </div>
+    <br>
+    <div  data-aos-duration="1200" data-aos="fade-left" class="col-lg-5">
+            <div class="card dark">
+              <div style="background-color: rgb(233,236,239)" class="card-body" >
+                <h2 class="card-title d-flex justify-content-center">Prediction</h2>
+                    <hr>
+                  <div class="d-flex justify-content-center">
+                      <img id="answer" style="animation:fadeo 0.3s ease ;width: 300px;height: 300px;border-radius: 10px;" src="{{ url_for('static', filename='images/setosa.jpg')}}" alt="RESULT IMAGE">
+                  </div>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <div class="row input-group input-group-lg">
+                      <div class="col input-group input-group-lg">
+                          <div class="input-group-prepend">
+                              <label class="input-group-text" for="res">Result</label>
+                          </div>
+                          <input id="res" type="text" class="form-control lead" readonly value="{{ result }}">
+                      </div>
+                      <div class="col input-group input-group-lg">
+                          <div class="input-group-prepend">
+                              <label class="input-group-text" for="Mod">Model</label>
+                          </div>
+                          <input id="Mod" type="text" class="form-control lead" readonly value="{{ model.upper() }}">
+                      </div>
+              </div>
+
+                  <div class="row input-group pt-2">
+
+                      <div class="col input-group ">
+                          <div class="input-group-prepend">
+                              <label class="input-group-text" for="pw_R">PW(cm)</label>
+                          </div>
+                          <input id="pw_R" type="text" class="form-control lead" readonly value="{{ measures[0] }}">
+                      </div>
+
+                      <div class="col input-group ">
+                          <div class="input-group-prepend">
+                              <label class="input-group-text" for="pl_R">PL(cm)</label>
+                          </div>
+                          <input id="pl_R" type="text" class="form-control lead" readonly value="{{ measures[1] }}">
+                      </div>
+
+                      <div class="col input-group ">
+                          <div class="input-group-prepend">
+                              <label class="input-group-text" for="sw_R">SW(cm)</label>
+                          </div>
+                          <input id="sw_R" type="text" class="form-control lead" readonly value="{{ measures[2] }}">
+                      </div>
+
+                      <div class="col input-group">
+                          <div class="input-group-prepend">
+                              <label class="input-group-text" for="sl_R">SL(cm)</label>
+                          </div>
+                          <input id="sl_R" type="text" class="form-control lead" readonly value="{{ measures[3] }}">
+                      </div>
+              </div>
+
+            </div>
+        </div>
+</div>
+<script type="text/javascript">
+    function predictor(){
+        if ("{{ result }}" === "0"){
+            document.getElementById('answer').src = "{{ url_for('static', filename='images/setosa.jpg')}}";
+            document.getElementById('res').value = "Setosa";
+            document.getElementById('Mod').value = "{{ model.upper() }}";
+        }
+        else if ("{{ result }}" === "1"){
+            document.getElementById('answer').src = "{{ url_for('static', filename='images/virginica.jpg')}}";
+            document.getElementById('res').value = "Virginica";
+            document.getElementById('Mod').value = "{{ model.upper() }}";
+        }
+        else{
+            document.getElementById('answer').src = "{{ url_for('static', filename='images/versicolor.jpg')}}";
+            document.getElementById('res').value = "Versicolor";
+            document.getElementById('Mod').value = "{{ model.upper() }}";
+        }
+
+    }
+    predictor()
+</script >
+<script type="text/javascript">
+    $("#model").button('toggle');
+</script>
+<script type="text/javascript">
+        function accuracy(){
+        let models_accuracy = [
+        "97.3",
+        "96.3",
+        "96.5",
+        "96.2",
+        "95.3",
+        "97.3",
+        "95.2"
+    ]
+
+
+        if (document.getElementById('option1').checked===true){
+            document.getElementById('accuracy').innerHTML = "ACCURACY : " + models_accuracy[0] + "%";
+        }
+        else if (document.getElementById('option2').checked===true){
+            document.getElementById('accuracy').innerHTML = "ACCURACY : " + models_accuracy[1] + "%";
+        }
+        else if (document.getElementById('option3').checked===true){
+            document.getElementById('accuracy').innerHTML = "ACCURACY : " + models_accuracy[2] + "%";
+        }
+        else if (document.getElementById('option4').checked===true){
+            document.getElementById('accuracy').innerHTML ="ACCURACY : " + models_accuracy[3] + "%";
+        }
+        else if (document.getElementById('option5').checked===true){
+            document.getElementById('accuracy').innerHTML = "ACCURACY : " + models_accuracy[4] + "%";
+        }
+
+        else if (document.getElementById('option6').checked===true){
+            document.getElementById('accuracy').innerHTML = "ACCURACY : " + models_accuracy[5] + "%";
+        }
+        else if (document.getElementById('option7').checked===true){
+            document.getElementById('accuracy').innerHTML = "ACCURACY : " + models_accuracy[6] + "%";
+        }
+    }
+</script>
+
+{% endblock %}
