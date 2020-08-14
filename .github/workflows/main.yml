@@ -19,11 +19,10 @@ jobs:
     - uses: codecov/codecov-action@v1
     # Introduction
     - name: utile building
-      run: echo Iris says!
+      run: pip install -r requirements.txt
 
     # Runs test
     - name: Running tests
       run: |
         echo Building...
-        pip install -r  requirements.txt
         python -m unittest discover tests
