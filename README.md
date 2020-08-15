@@ -54,7 +54,7 @@ This platform is majorily developed for **beginners in Data Analytics/Machine Le
 The platform can play a major part in **showcasing AI and machine learning for students in high schools and other bootcamps**.  
 
 ## Higher Optimizations:cherry_blossom:
-- The tool can **grow in size** to explore various other famous datasets and the usage of machine learning in each of them and not only iris.  
+- The tool can **grow in size** to explore various other famous datasets and the usage of machine learning in each of them and not only iris(A good example would be Boston says!).  
 - The tool can become a platform for users to **develop their own models on that dataset and upload them**. They can also write content about the database.
 - The Graphical visualisations can be **enhanced** using various tools of javascript.
 
